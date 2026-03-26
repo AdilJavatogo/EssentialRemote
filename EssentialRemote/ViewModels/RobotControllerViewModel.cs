@@ -69,28 +69,28 @@ namespace EssentialRemote.ViewModels
             }
         }
 
-        [RelayCommand]
-        private void OnTouchStarted(Point location)
-        {
-            // Når brugeren trykker ned, flytter vi knoppen og starter timeren
-            UpdateJoystick(location);
-            isSending = true;
-            _timer.Start();
-        }
+        //[RelayCommand]
+        //private void OnTouchStarted(Point location)
+        //{
+        //    // Når brugeren trykker ned, flytter vi knoppen og starter timeren
+        //    UpdateJoystick(location);
+        //    isSending = true;
+        //    _timer.Start();
+        //}
 
-        [RelayCommand]
-        private void OnTouchMoved(Point location)
-        {
-            // Når brugeren trækker fingeren, opdaterer vi knoppens position
-            UpdateJoystick(location);
-        }
+        //[RelayCommand]
+        //private void OnTouchMoved(Point location)
+        //{
+        //    // Når brugeren trækker fingeren, opdaterer vi knoppens position
+        //    UpdateJoystick(location);
+        //}
 
-        [RelayCommand]
-        private void OnTouchEnded()
-        {
-            // Når brugeren slipper skærmen, nulstiller vi joysticket til midten og stopper timeren
-            ResetJoystick();
-        }
+        //[RelayCommand]
+        //private void OnTouchEnded()
+        //{
+        //    // Når brugeren slipper skærmen, nulstiller vi joysticket til midten og stopper timeren
+        //    ResetJoystick();
+        //}
 
         private void UpdateJoystick(Point touchPoint)
         {
@@ -146,20 +146,16 @@ namespace EssentialRemote.ViewModels
             SendCommands();
         }
 
-        private void SendCommands()
+        private async void SendCommands()
         {
-            // Hvis vi ikke trykker, men timeren alligevel tikker (skal ikke ske), så stop
-            if (!IsSending && LinearXSpeed == 0f && AngularZSpeed == 0f) return;
-
-            // Opret og send Twist beskeden
             var msg = new TwistMessage
             {
                 LinearX = LinearXSpeed,
                 AngularZ = AngularZSpeed
             };
 
-            // Publicer via UDP
-            _udpSender.SendTwistCommand(msg);
+            // Kald den asynkrone metode
+            await _udpSender.SendTwistCommandAsync(msg);
         }
     }
 }

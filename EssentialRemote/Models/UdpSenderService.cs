@@ -16,19 +16,18 @@ namespace EssentialRemote.Models
             _udpClient = new UdpClient();
         }
 
-        public void SendTwistCommand(TwistMessage message)
+        public async Task SendTwistCommandAsync(TwistMessage message)
         {
             try
             {
                 string jsonString = message.ToJson();
                 byte[] data = Encoding.UTF8.GetBytes(jsonString);
 
-                // Sender dataene afsted via UDP
-                _udpClient.Send(data, data.Length, _targetIpAddress, _targetPort);
+                // Brug SendAsync!
+                await _udpClient.SendAsync(data, data.Length, _targetIpAddress, _targetPort);
             }
             catch (Exception ex)
             {
-                // Håndter evt. netværksfejl her
                 Console.WriteLine($"Fejl ved afsendelse: {ex.Message}");
             }
         }

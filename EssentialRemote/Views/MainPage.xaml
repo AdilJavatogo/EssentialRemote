@@ -34,13 +34,7 @@
 
                 <Ellipse Fill="Transparent" IsVisible="True" IsEnabled="True">
                     <Ellipse.GestureRecognizers>
-                        <PanGestureRecognizer>
-                            <PanGestureRecognizer.Behaviors>
-                                <toolkit:EventToCommandBehavior 
-                                    EventName="PanUpdated" 
-                                    Command="{Binding PanUpdatedCommand}" />
-                            </PanGestureRecognizer.Behaviors>
-                        </PanGestureRecognizer>
+                        <PanGestureRecognizer PanUpdated="OnPanUpdated" />
                     </Ellipse.GestureRecognizers>
                 </Ellipse>
             </Grid>
