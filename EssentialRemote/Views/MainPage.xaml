@@ -23,7 +23,8 @@
 
             <Grid HeightRequest="300" WidthRequest="300" HorizontalOptions="Center">
                 <Ellipse Fill="#3C3C3C" Stroke="#FFC107" StrokeThickness="4" 
-                         HeightRequest="300" WidthRequest="300" />
+                         HeightRequest="300" WidthRequest="300"
+                         InputTransparent="True"/>
 
                 <Ellipse Fill="#FFC107" Stroke="#FFD54F" StrokeThickness="2" 
                          HeightRequest="60" WidthRequest="60"
