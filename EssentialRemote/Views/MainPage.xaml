@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:EssentialRemote.ViewModels"
+             xmlns:converters="clr-namespace:EssentialRemote.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="EssentialRemote.MainPage"
+             BackgroundColor="#1C1C1C">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CenterToCornerConverter x:Key="CenterToCornerConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <viewmodels:RobotControllerViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="40">
+            <Label Text="Robot Joystick" TextColor="White" FontSize="Large" HorizontalOptions="Center"/>
+
+            <Grid HeightRequest="300" WidthRequest="300" HorizontalOptions="Center">
+                <Ellipse Fill="#3C3C3C" Stroke="#FFC107" StrokeThickness="4" 
+                         HeightRequest="300" WidthRequest="300" />
+
+                <Ellipse Fill="#FFC107" Stroke="#FFD54F" StrokeThickness="2" 
+                         HeightRequest="60" WidthRequest="60"
+                         HorizontalOptions="Start" VerticalOptions="Start"
+                         TranslationX="{Binding JoystickX, Converter={StaticResource CenterToCornerConverter}}"
+                         TranslationY="{Binding JoystickY, Converter={StaticResource CenterToCornerConverter}}"/>
+
+                <Ellipse Fill="Transparent" IsVisible="True" IsEnabled="True">
+                    <Ellipse.GestureRecognizers>
+                        <PanGestureRecognizer>
+                            <PanGestureRecognizer.Behaviors>
+                                <toolkit:EventToCommandBehavior 
+                                    EventName="PanUpdated" 
+                                    Command="{Binding PanUpdatedCommand}" />
+                            </PanGestureRecognizer.Behaviors>
+                        </PanGestureRecognizer>
+                    </Ellipse.GestureRecognizers>
+                </Ellipse>
+            </Grid>
+
+            <Label Text="{Binding LinearXSpeed, StringFormat='Frem/Tilbage: {0:F2}'}" TextColor="White" HorizontalOptions="Center"/>
+            <Label Text="{Binding AngularZSpeed, StringFormat='Venstre/Højre: {0:F2}'}" TextColor="White" HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
