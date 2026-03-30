@@ -7,8 +7,8 @@
     Title="EssentialRemote">
 
     <ShellContent
-        Title="Home"
+        Title="Essential Robotics"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="MainPage"/>
 
 </Shell>
