@@ -23,7 +23,6 @@ namespace EssentialRemote.Models
                 string jsonString = message.ToJson();
                 byte[] data = Encoding.UTF8.GetBytes(jsonString);
 
-                // Brug SendAsync!
                 await _udpClient.SendAsync(data, data.Length, _targetIpAddress, _targetPort);
             }
             catch (Exception ex)

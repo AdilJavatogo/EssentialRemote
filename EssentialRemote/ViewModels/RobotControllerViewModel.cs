@@ -28,20 +28,20 @@ namespace EssentialRemote.ViewModels
         }
 
         [ObservableProperty]
-        private double joystickX = BaseRadius; // Startposition for knoppen (midten af cirklen)
+        public partial double JoystickX { get; set; } = BaseRadius; // Startposition for knoppen (midten af cirklen)
 
         [ObservableProperty]
-        private double joystickY = BaseRadius; // Startposition for knoppen (midten af cirklen)
+        public partial double JoystickY { get; set; } = BaseRadius; // Startposition for knoppen (midten af cirklen)
 
         [ObservableProperty]
-        private bool isSending = false; // Angiver om vi i øjeblikket sender data (fingeren er på skærmen)
+        public partial bool IsSending { get; set; } = false; // Angiver om vi i øjeblikket sender data (fingeren er på skærmen)
 
         // Hastigheder beregnet ud fra joystick-positionen
         [ObservableProperty]
-        private float linearXSpeed;
+        public partial float LinearXSpeed { get; set; }
 
         [ObservableProperty]
-        private float angularZSpeed;
+        public partial float AngularZSpeed { get; set; }
 
         [RelayCommand]
         private void PanUpdated(PanUpdatedEventArgs e)
@@ -69,28 +69,6 @@ namespace EssentialRemote.ViewModels
             }
         }
 
-        //[RelayCommand]
-        //private void OnTouchStarted(Point location)
-        //{
-        //    // Når brugeren trykker ned, flytter vi knoppen og starter timeren
-        //    UpdateJoystick(location);
-        //    isSending = true;
-        //    _timer.Start();
-        //}
-
-        //[RelayCommand]
-        //private void OnTouchMoved(Point location)
-        //{
-        //    // Når brugeren trækker fingeren, opdaterer vi knoppens position
-        //    UpdateJoystick(location);
-        //}
-
-        //[RelayCommand]
-        //private void OnTouchEnded()
-        //{
-        //    // Når brugeren slipper skærmen, nulstiller vi joysticket til midten og stopper timeren
-        //    ResetJoystick();
-        //}
 
         private void UpdateJoystick(Point touchPoint)
         {
