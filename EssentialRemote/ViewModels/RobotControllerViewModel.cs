@@ -23,7 +23,7 @@ namespace EssentialRemote.ViewModels
             // Vi bruger en timer til kun at sende data periodisk (f.eks. 10 gange i sekundet), 
             // i stedet for at sende en pakke for hver pixel brugeren flytter fingeren.
             _timer = Application.Current.Dispatcher.CreateTimer();
-            _timer.Interval = TimeSpan.FromMilliseconds(100);
+            _timer.Interval = TimeSpan.FromMilliseconds(50); // 50 ms interval = 20 gange i sekundet
             _timer.Tick += (s, e) => SendCommands();
         }
 
@@ -53,7 +53,8 @@ namespace EssentialRemote.ViewModels
             switch (e.StatusType)
             {
                 case GestureStatus.Started:
-                    IsSending = true;// FJERNEDE SKRÅSTREGERNE HER! Nu begynder den at sende løbende.
+                    IsSending = true;
+                    _timer.Start(); // FJERNEDE SKRÅSTREGERNE HER! Nu begynder den at sende løbende.
                     UpdateJoystick(new Point(currentX, currentY));
                     break;
 
