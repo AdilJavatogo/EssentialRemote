@@ -53,18 +53,19 @@ namespace EssentialRemote.ViewModels
             switch (e.StatusType)
             {
                 case GestureStatus.Started:
-                    IsSending = true;
-                    // _timer.Start(); // Hvis du bruger timeren fra tidligere
+                    IsSending = true;// FJERNEDE SKRÅSTREGERNE HER! Nu begynder den at sende løbende.
                     UpdateJoystick(new Point(currentX, currentY));
                     break;
 
                 case GestureStatus.Running:
                     UpdateJoystick(new Point(currentX, currentY));
+                    // Timeren kører automatisk i baggrunden nu og affyrer SendCommands() 10 gange i sekundet!
                     break;
 
                 case GestureStatus.Completed:
                 case GestureStatus.Canceled:
                     ResetJoystick();
+                    // I ResetJoystick() bliver _timer.Stop() allerede kaldt, hvilket er helt perfekt.
                     break;
             }
         }
