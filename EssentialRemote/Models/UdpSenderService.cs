@@ -24,7 +24,7 @@ namespace EssentialRemote.Models
             if (DeviceInfo.Platform == DevicePlatform.WinUI)
             {
                 return "127.0.0.1"; // Brug altid localhost på Windows
-            }
+            } 
 
             // 2. Kører vi på en Android Emulator (virtuel maskine)?
             if (DeviceInfo.DeviceType == DeviceType.Virtual)
@@ -34,7 +34,7 @@ namespace EssentialRemote.Models
 
             // 3. Hvis ingen af delene er sande, MÅ vi være på en fysisk telefon.
             // HER SKAL DU INDTASTE DIN COMPUTERS WI-FI IP-ADRESSE!
-            return "10.254.120.132";
+            return "10.254.120.132"; // 10.254.120.132 - mobil netværk   , 172.17.45.131
         }
 
         public async Task SendTwistCommandAsync(TwistMessage message)
