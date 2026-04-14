@@ -103,10 +103,12 @@ namespace EssentialRemote.ViewModels
             LinearXSpeed = distance < Deadzone ? 0f : (float)(-deltaY / BaseRadius);
 
             // 2. Angulær hastighed (Z): Afhænger af X-aksen (venstre/højre)
-            // For at gøre det nemmere at køre lige frem, dæmper vi drejningen når joysticket er næsten lige frem.
-            // En simpel tilgang er at bruge deltaX divideret med BaseRadius, men du kan forbedre dette.
-            // Dette muliggør skrå kørsel, da både LinearX og AngularZ kan være aktive samtidigt.
-            AngularZSpeed = distance < Deadzone ? 0f : (float)(deltaX / BaseRadius);
+            // Bestem om vi skal vende drejeretningen. Hvis vi kører fremad (eller holder stille),
+            // skal vi bruge et minus (-1). Hvis vi bakker, skal vi bruge et plus (1).
+            float turnMultiplier = LinearXSpeed >= 0 ? -1f : 1f;
+
+            // Gang deltaX med vores turnMultiplier
+            AngularZSpeed = distance < Deadzone ? 0f : (float)(deltaX / BaseRadius) * turnMultiplier;
 
             // Vi kan tilføje mere avanceret dæmpning her, men dette er en solid start.
             // For eksempel, kan vi gøre det sværere at dreje når man kører meget hurtigt (høj LinearX).
